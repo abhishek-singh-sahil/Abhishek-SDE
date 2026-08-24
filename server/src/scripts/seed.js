@@ -63,18 +63,23 @@ const seedDatabase = async () => {
     console.log('✔ Site settings seeded successfully');
 
     await SEOSettings.create({
-      siteTitle: 'Abhishek Singh Sahil | Full-Stack Developer & Software Developer',
-      defaultDescription: 'Premium software developer portfolio of Abhishek Singh Sahil. We build custom websites, backend APIs, SaaS, and video post-production tools.',
+      siteTitle: 'Abhishek Singh Sahil | Full-Stack Software Engineer & Web Developer',
+      defaultDescription: 'Abhishek Singh Sahil is a professional Full-Stack Software Engineer and Web Developer. Specialized in MERN Stack (MongoDB, Express, React, Node.js), PostgreSQL, custom software solutions, database systems, and web application development.',
       defaultKeywords: [
-        'full stack developer',
-        'software development business',
-        'react developer',
-        'abhishek singh sahil',
-        'video editing services',
-        'mongodb nodejs developer',
+        'Abhishek Singh Sahil',
+        'Abhishek Software Engineer',
+        'Abhishek Web Developer',
+        'Abhishek Bihar',
+        'Abhishek SDE',
+        'Full-Stack Developer Bihar',
+        'Software Engineer Bihar',
+        'MERN Stack Developer India',
+        'Web Developer Bihar',
+        'React Developer India',
+        'PostgreSQL Specialist Bihar'
       ],
-      defaultOgImage: '/og-image.png',
-      robotsTxt: 'User-agent: *\nAllow: /\nSitemap: http://localhost:3000/sitemap.xml',
+      defaultOgImage: '/uploads/sde-cover.png',
+      robotsTxt: 'User-agent: *\nAllow: /\nSitemap: https://abhisheksinghsahil.vercel.app/sitemap.xml',
     });
     console.log('✔ SEO settings seeded successfully');
 
