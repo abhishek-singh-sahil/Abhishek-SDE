@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #F7F6F2;
+    color: #18212B;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* Custom minimal scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #F7F6F2;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #18212B;
+    border-radius: 4px;
+    border: 2px solid #F7F6F2;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #C89B4B;
+  }
+}
+
+/* Custom premium styling classes */
+.card-premium {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(24, 33, 43, 0.06);
+  box-shadow: 0 10px 30px -10px rgba(24, 33, 43, 0.05);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-premium:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px -15px rgba(24, 33, 43, 0.12);
+  border-color: rgba(124, 154, 139, 0.25);
+}
+
+/* Abstract Dot Grid Accent */
+.dot-grid {
+  background-image: radial-gradient(rgba(24, 33, 43, 0.08) 1.5px, transparent 1.5px);
+  background-size: 16px 16px;
+}
+
+/* Custom modern cursor glow trail */
+@media (pointer: fine) {
+  .custom-cursor-active * {
+    cursor: none !important;
+  }
+}
