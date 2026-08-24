@@ -1,4 +1,4 @@
-const API_URL = '/api'; // Use local proxies configured in vite.config.js
+const API_URL = import.meta.env.VITE_API_URL || '/api'; // Use env variable or local proxy fallback
 
 export async function apiFetch(endpoint, options = {}) {
   const url = `${API_URL}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
