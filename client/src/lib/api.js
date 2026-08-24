@@ -1,4 +1,6 @@
-const API_URL = import.meta.env.VITE_API_URL || '/api'; // Use env variable or local proxy fallback
+const API_URL = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+  ? '/api'
+  : 'https://abhisheksinghsahil.onrender.com/api';
 
 export async function apiFetch(endpoint, options = {}) {
   const url = `${API_URL}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
