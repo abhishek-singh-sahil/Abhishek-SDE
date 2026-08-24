@@ -304,8 +304,26 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {projects.map((project, idx) => (
               <PremiumCard key={idx}>
-                <div className="relative w-full h-48 bg-[#0a0d1c] mb-6 rounded-md flex items-center justify-center text-offwhite/50 text-xs font-serif italic uppercase select-none">
-                  [Cover Image: {project.title}]
+                <div className="relative w-full h-48 bg-[#0a0d1c] mb-6 rounded-md overflow-hidden select-none border border-navy/5">
+                  {project.liveUrl ? (
+                    <div className="w-full h-full relative pointer-events-none">
+                      <iframe
+                        src={project.liveUrl}
+                        title={project.title}
+                        className="w-[200%] h-[200%] border-0 opacity-85"
+                        style={{
+                          transform: 'scale(0.5)',
+                          transformOrigin: '0 0',
+                        }}
+                      />
+                      {/* Transparent absolute overlay to block cursor and scrolling */}
+                      <div className="absolute inset-0 bg-transparent cursor-default pointer-events-auto" />
+                    </div>
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-offwhite/50 text-xs font-serif italic uppercase">
+                      [Cover Image: {project.title}]
+                    </div>
+                  )}
                 </div>
                 <h3 className="font-serif text-xl font-bold text-navy mb-2">{project.title}</h3>
                 <p className="text-xs text-navy/70 font-sans leading-relaxed mb-6 h-12 overflow-hidden text-ellipsis">

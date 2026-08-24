@@ -75,8 +75,22 @@ export default function ProjectDetailsPage() {
               )}
             </div>
 
-            <div className="relative w-full h-64 md:h-96 bg-[#0a0d1c] rounded-md flex items-center justify-center font-serif italic text-offwhite/50 text-xs uppercase mb-6 select-none">
-              [COVER PHOTO: {project.title}]
+            <div className="relative w-full h-64 md:h-96 bg-[#0a0d1c] rounded-md overflow-hidden mb-6 select-none border border-navy/5">
+              {project.liveUrl ? (
+                <div className="w-full h-full relative pointer-events-none">
+                  <iframe
+                    src={project.liveUrl}
+                    title={project.title}
+                    className="w-full h-full border-0 opacity-85"
+                  />
+                  {/* Transparent absolute overlay to block cursor and scrolling */}
+                  <div className="absolute inset-0 bg-transparent cursor-default pointer-events-auto" />
+                </div>
+              ) : (
+                <div className="w-full h-full flex items-center justify-center font-serif italic text-offwhite/50 text-xs uppercase">
+                  [COVER PHOTO: {project.title}]
+                </div>
+              )}
             </div>
 
             <h3 className="font-sans font-bold text-xs uppercase text-gold mb-2 tracking-wider">Overview</h3>
