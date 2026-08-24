@@ -294,6 +294,34 @@ const logoutAdmin = (req, res) => {
   res.status(200).json({ success: true, message: 'Logged out from Admin successfully' });
 };
 
+const changeAdminPassword = async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+
+  if (!oldPassword || !newPassword) {
+    return res.status(400).json({ success: false, message: 'Old and new passwords are required' });
+  }
+
+  try {
+    const admin = await Admin.findById(req.admin._id);
+    if (!admin) {
+      return res.status(404).json({ success: false, message: 'Admin not found' });
+    }
+
+    const isMatch = await bcrypt.compare(oldPassword, admin.passwordHash);
+    if (!isMatch) {
+      return res.status(401).json({ success: false, message: 'Incorrect old password' });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    admin.passwordHash = await bcrypt.hash(newPassword, salt);
+    await admin.save();
+
+    res.status(200).json({ success: true, message: 'Password updated successfully' });
+  } catch (error) {
+    res.status(400).json({ success: false, error: error.message });
+  }
+};
+
 module.exports = {
   googleLogin,
   userRegister,
@@ -304,4 +332,5 @@ module.exports = {
   getAdminMe,
   logoutUser,
   logoutAdmin,
+  changeAdminPassword,
 };

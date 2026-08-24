@@ -35,17 +35,17 @@ const seedDatabase = async () => {
 
     console.log('Collections cleared. Starting seed operations...');
 
-    const adminPassword = 'adminpassword123';
+    const adminPassword = 'Admin#321';
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(adminPassword, salt);
 
     await Admin.create({
-      username: 'pixeladmin',
-      email: 'admin@pixeldev.com',
+      username: 'Abhisheksinghsahil',
+      email: 'abhishek2023gdsc@gmail.com',
       passwordHash,
       role: 'superadmin',
     });
-    console.log('✔ Admin account seeded successfully (admin@pixeldev.com / adminpassword123)');
+    console.log('✔ Admin account seeded successfully (abhishek2023gdsc@gmail.com / Admin#321)');
 
     await SiteSettings.create({
       brandName: 'Abhishek Singh Sahil',

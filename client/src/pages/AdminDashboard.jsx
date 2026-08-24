@@ -30,6 +30,12 @@ export default function AdminDashboard() {
   const [isAdding, setIsAdding] = useState(false);
   const [formFields, setFormFields] = useState({});
 
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordStatus, setPasswordStatus] = useState('idle');
+  const [passwordMessage, setPasswordMessage] = useState('');
+
   useEffect(() => {
     if (!authLoading && !admin) {
       navigate('/admin/login');
@@ -149,6 +155,39 @@ export default function AdminDashboard() {
       }
     } catch (err) {
       alert('Failed to save settings.');
+    }
+  };
+
+  const handlePasswordChange = async (e) => {
+    e.preventDefault();
+    if (!oldPassword || !newPassword || !confirmPassword) return;
+    if (newPassword !== confirmPassword) {
+      setPasswordStatus('error');
+      setPasswordMessage('New passwords do not match!');
+      return;
+    }
+
+    setPasswordStatus('submitting');
+    setPasswordMessage('');
+
+    try {
+      const res = await apiFetch('/auth/admin/change-password', {
+        method: 'PUT',
+        body: JSON.stringify({ oldPassword, newPassword }),
+      });
+      if (res.success) {
+        setPasswordStatus('success');
+        setPasswordMessage('Password updated successfully!');
+        setOldPassword('');
+        setNewPassword('');
+        setConfirmPassword('');
+      } else {
+        setPasswordStatus('error');
+        setPasswordMessage(res.message || 'Incorrect old password.');
+      }
+    } catch (err) {
+      setPasswordStatus('error');
+      setPasswordMessage(err.message || 'Incorrect old password.');
     }
   };
 
@@ -893,6 +932,57 @@ export default function AdminDashboard() {
 
                       <GoldButton type="submit" variant="solid" size="sm">
                         Save SEO Settings
+                      </GoldButton>
+                    </form>
+                  </PremiumCard>
+
+                  <PremiumCard>
+                    <h3 className="font-serif text-base font-bold text-navy mb-4 border-b border-navy/5 pb-2">CHANGE CONSOLE PASSWORD</h3>
+                    <form onSubmit={handlePasswordChange} className="space-y-4 font-sans text-xs">
+                      <div>
+                        <label className="block text-[9px] font-sans font-bold text-navy/60 uppercase mb-1">Old Secure Password</label>
+                        <input
+                          type="password"
+                          required
+                          value={oldPassword}
+                          onChange={(e) => setOldPassword(e.target.value)}
+                          placeholder="••••••••"
+                          className="w-full border border-navy/10 bg-offwhite p-3 text-xs outline-none rounded-sm"
+                        />
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-[9px] font-sans font-bold text-navy/60 uppercase mb-1">New Secure Password</label>
+                          <input
+                            type="password"
+                            required
+                            value={newPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
+                            placeholder="••••••••"
+                            className="w-full border border-navy/10 bg-offwhite p-3 text-xs outline-none rounded-sm"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[9px] font-sans font-bold text-navy/60 uppercase mb-1">Confirm New Password</label>
+                          <input
+                            type="password"
+                            required
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            placeholder="••••••••"
+                            className="w-full border border-navy/10 bg-offwhite p-3 text-xs outline-none rounded-sm"
+                          />
+                        </div>
+                      </div>
+
+                      {passwordMessage && (
+                        <div className={`text-[11px] font-semibold ${passwordStatus === 'success' ? 'text-sage' : 'text-red-500'}`}>
+                          {passwordMessage}
+                        </div>
+                      )}
+
+                      <GoldButton type="submit" variant="navy" size="sm" disabled={passwordStatus === 'submitting'}>
+                        {passwordStatus === 'submitting' ? 'Updating...' : 'Commit Password Change'}
                       </GoldButton>
                     </form>
                   </PremiumCard>

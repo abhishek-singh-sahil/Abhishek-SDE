@@ -10,8 +10,8 @@ export default function AdminLoginPage() {
   const navigate = useNavigate();
   const { admin, loginAdmin } = useAuth();
 
-  const [email, setEmail] = useState('admin@pixeldev.com');
-  const [password, setPassword] = useState('adminpassword123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
@@ -61,6 +61,7 @@ export default function AdminLoginPage() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="e.g. admin@domain.com"
               className="w-full border border-navy/10 bg-offwhite text-navy p-3 text-xs outline-none focus:border-gold rounded-sm"
             />
           </div>
@@ -72,6 +73,7 @@ export default function AdminLoginPage() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
               className="w-full border border-navy/10 bg-offwhite text-navy p-3 text-xs outline-none focus:border-gold rounded-sm"
             />
           </div>

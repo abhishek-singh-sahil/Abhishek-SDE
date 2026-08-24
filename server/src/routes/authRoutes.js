@@ -10,6 +10,7 @@ const {
   getAdminMe,
   logoutUser,
   logoutAdmin,
+  changeAdminPassword,
 } = require('../controllers/authController');
 const { protectUser, protectAdmin } = require('../middleware/auth');
 
@@ -18,6 +19,7 @@ router.post('/register', userRegister);
 router.post('/login', userLogin);
 router.post('/admin/login', adminLogin);
 router.post('/admin/register', registerAdmin);
+router.put('/admin/change-password', protectAdmin, changeAdminPassword);
 
 router.get('/me', protectUser, getMe);
 router.get('/admin/me', protectAdmin, getAdminMe);
